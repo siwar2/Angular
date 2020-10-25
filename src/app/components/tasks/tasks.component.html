@@ -1,0 +1,81 @@
+<div class="row my-4">
+    <div class="col-md-6">
+  
+    
+    </div>
+    <div class="col-md-6 text-right ">
+        <button (click)="showForm=!showForm"  class="btn btn-dark btn-sm">
+            <i class="fa fa-plus"></i>New Task
+        </button>
+    </div>
+</div>
+<div class="row" *ngIf="showForm">
+    <div class="col-md-6 mx-auto">
+        <div class="for-group">
+            <label for="label">
+               Label
+            </label>
+            <input [(ngModel)]="myTask.label" type="text" class="form-control" id="label">
+        </div>
+        <div class="for-group">
+            <label for="db">
+               Date Debut
+            </label>
+            <input [(ngModel)]="myTask.dd" type="date" class="form-control" id="dd">
+        </div>
+        <div class="for-group">
+            <label for="df">
+               Date Fin
+            </label>
+            <input [(ngModel)]="myTask.df" type="date" class="form-control" id="df">
+        </div>
+      
+        <div class="form-check my-2">
+          <label class="form-check-label">
+            <input [(ngModel)]="myTask.completed" type="checkbox" class="form-check-input"value="checkedValue" >
+            completed 
+          </label>
+        </div>
+        <button  *ngIf="editForm" (click)="updateTask()" class="btn btn-warning btn-block">
+            <i class="fa fa-refresh"></i>update Task</button>
+            <button  *ngIf="!editForm" (click)="saveTask()" class="btn btn-success btn-block">
+                <i class="fa fa-send"></i>New Task</button>
+    </div>
+</div>
+<div class="container"> <h3> List Of Tasks  </h3> </div>
+<table class="table table-bordered">
+   
+<tbody>
+   
+<tr *ngFor="let task of tasks">
+    <td> 
+            <button  (click)="editTask(task)" class="btn btn-warning btn-sm">
+                <i class="fa fa-pencil"> </i>
+            </button>
+    </td>
+    <td scope="row">{{task.label}}</td>
+    <td>
+    <span (click)="togglecompleted(task)"
+    [ngClass]="{
+        'badge-info':task.completed,
+        'badge-danger':!task.completed
+
+    }"   
+     class="badge badge-danger badge-primary">
+          <i class="fa " [ngClass]="{
+            'fa-thumbs-up':task.completed,
+            'fa-thumbs-down':!task.completed  }"   ></i>
+
+    </span> 
+         </td>
+    <td>{{task.dd}}</td>
+    <td>{{task.df}} </td>
+ 
+ 
+   <td> <button  (click)="deleteTask(task.id)" class="btn btn-warning btn-sm btn-danger"><i class="fa fa-trash"></i></button></td>
+</tr>
+
+</tbody>
+
+</table>
+
